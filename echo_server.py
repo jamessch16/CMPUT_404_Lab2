@@ -29,12 +29,25 @@ def start_server():
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) 
         
         # wait for connection
-        s.listen() # makes the socket a server socket
-        conn, addr = s.accept() # waits for a connection and accepts it. conn = connected local socket, addr = return address
-        handle_connection(conn, addr)
+        s.listen(2) # makes the socket a server socket
+        while True:
+            conn, addr = s.accept() # waits for a connection and accepts it. conn = connected local socket, addr = return address
+            thread = Thread(target=handle_connection, args=(conn, addr))
+            thread.run()
 
-def start_threaded_server():
-    pass
+# unthreaded server start
+#def start_server():
+#    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s: # open socket with ipv4, tcp
+#        # set up socket
+#        s.bind((HOST, PORT)) # bind ip and port to socket
+#
+#        # socket.SO_RESUEADDR is a flag that allows us to bind TODO
+#        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) 
+#        
+#        # wait for connection
+#        s.listen() # makes the socket a server socket
+#        conn, addr = s.accept() # waits for a connection and accepts it. conn = connected local socket, addr = return address
+#        handle_connection(conn, addr)
 
 if __name__ == "__main__":
     start_server()

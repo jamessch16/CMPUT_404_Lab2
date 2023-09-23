@@ -3,4 +3,4 @@
 3. Use the setsockopt function and set the socket.SO_REUSEADDR setting to 1 (ie, True). Settings are applied at the socket level specified by socket.SOL_SOCKET
 4. We recieve the IP and the port number of the socket on the other side of the connection
 5. Once the client is done sending an HTTP request, the server recieves an empty byte string to tell it that the request has finished being sent. More generally, it means that the socket on the other end of the connection has been shutdown.
-6. 
+6. https://github.com/jamessch16/CMPUT_404_Lab2

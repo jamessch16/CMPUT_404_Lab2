@@ -50,9 +50,11 @@ def start_server():
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # TODO EXPLAIN
         
         # wait for connection
-        s.listen() # listen for connections
-        conn, addr = s.accept()
-        handle_connection(conn, addr)
+        s.listen(2) # listen for connections, with an allowed queue of 2 connections
+        while True:
+            conn, addr = s.accept()
+            thread = Thread(target=handle_connection, args=(conn, addr))
+            thread.run()
 
 # unthreaded server loop
 #def start_server():
@@ -68,4 +70,3 @@ def start_server():
 
 if __name__ == "__main__":
     start_server()
-    #start_threaded_server()
